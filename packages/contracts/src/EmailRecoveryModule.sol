@@ -19,7 +19,7 @@ contract EmailRecoveryModule is EmailAccountRecovery {
     uint public timelock;
 
     modifier onlyNotRecoveringOwner() {
-        require(msg.sender == owner(), "only owner");
+        require(msg.sender == owner(), "only owner"); //OwnerManager owner() LLfetch
         require(!isRecovering, "recovery in progress");
         _;
     }
@@ -133,7 +133,7 @@ contract EmailRecoveryModule is EmailAccountRecovery {
         timelock = block.timestamp + timelockPeriod;
     }
 
-    function rejectRecovery() public onlyOwner {
+    function rejectRecovery() public { //onlyOwner FIX LLFETCH
         require(isRecovering, "recovery not in progress");
         require(timelock > block.timestamp, "timelock expired");
         isRecovering = false;
